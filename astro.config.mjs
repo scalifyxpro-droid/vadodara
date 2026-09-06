@@ -3,5 +3,13 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://vadodaraexperts.com',
-  integrations: [sitemap()],
+  trailingSlash: 'always',
+  integrations: [
+    sitemap({
+      serialize(item) {
+        item.lastmod = new Date();
+        return item;
+      },
+    }),
+  ],
 });

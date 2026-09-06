@@ -11,11 +11,13 @@ const categoryNames = niches.map((n) => n.data.name);
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'LocalBusiness',
     name: 'Vadodara Experts',
     url: 'https://vadodaraexperts.com',
+    image: 'https://vadodaraexperts.com/android-chrome-512x512.png',
     logo: 'https://vadodaraexperts.com/android-chrome-512x512.png',
     telephone: '+91-6353583148',
+    priceRange: '₹₹',
     areaServed: 'Vadodara, Gujarat',
     address: {
       '@type': 'PostalAddress',
@@ -51,7 +53,7 @@ const jsonLd = [
       </div>
       <div class="grid grid-4 cat-grid">
         {niches.map((n) => (
-          <a class="card cat-card" href={`/${n.data.urlSlug}`}>
+          <a class="card cat-card" href={`/${n.data.urlSlug}/`}>
             <span class="cat-eyebrow">{n.data.category}</span>
             <span class="cat-name">{n.data.name}</span>
           </a>

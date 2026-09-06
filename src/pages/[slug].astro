@@ -29,9 +29,11 @@ const jsonLd = [
     serviceType: d.name,
     areaServed: 'Vadodara, Gujarat',
     provider: {
-      '@type': 'Organization',
+      '@type': 'LocalBusiness',
       name: 'Vadodara Experts',
+      image: 'https://vadodaraexperts.com/android-chrome-512x512.png',
       telephone: '+91-6353583148',
+      priceRange: '₹₹',
       address: {
         '@type': 'PostalAddress',
         streetAddress: '104, Silver Business Point, Alkapuri',
@@ -62,7 +64,7 @@ const jsonLd = [
   },
 ];
 ---
-<BaseLayout title={d.titles[0]} description={d.descriptions[0]} path={`/${d.urlSlug}`} jsonLd={jsonLd}>
+<BaseLayout title={d.titles[0]} description={d.descriptions[0]} path={`/${d.urlSlug}/`} jsonLd={jsonLd}>
   <Hero eyebrow={d.eyebrow} heading={d.titles[0].split('|')[0].trim()} sub={d.heroSub} niche={d.name} services={d.services} bgImage={`/images/${d.urlSlug}.jpg`} />
 
   <section class="section">
