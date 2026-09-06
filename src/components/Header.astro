@@ -1,0 +1,26 @@
+---
+import { WHATSAPP_NUMBER } from '../data/areas';
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="logo">Vadodara <span>Experts</span></a>
+    <a class="btn btn-primary cta" href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener">
+      WhatsApp Us
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header{
+    position:sticky; top:0; z-index:40;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+  }
+  .logo{ font-weight:700; font-size:1.05rem; color:var(--ink); }
+  .logo span{ color:var(--accent); }
+  .cta{ padding:9px 18px; font-size:.85rem; }
+</style>

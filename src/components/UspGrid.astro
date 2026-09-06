@@ -1,0 +1,18 @@
+---
+interface Props { usps: { title: string; body: string }[] }
+const { usps } = Astro.props;
+---
+<div class="grid grid-4 usp-grid">
+  {usps.map((u) => (
+    <div class="card usp">
+      <p class="usp-title">{u.title}</p>
+      <p class="usp-body">{u.body}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .usp{ padding:22px 20px; }
+  .usp-title{ font-weight:600; color:var(--ink); font-size:.98rem; margin-bottom:6px; }
+  .usp-body{ font-size:.86rem; }
+</style>

@@ -1,0 +1,22 @@
+---
+interface Props { services: string[] }
+const { services } = Astro.props;
+---
+<ul class="service-list grid grid-2">
+  {services.map((s) => (
+    <li class="service-item">
+      <span class="dot"></span>{s}
+    </li>
+  ))}
+</ul>
+
+<style>
+  .service-item{
+    display:flex; align-items:flex-start; gap:10px;
+    font-size:.95rem; color:var(--ink); padding:10px 0;
+  }
+  .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--accent); margin-top:8px; flex-shrink:0;
+  }
+</style>

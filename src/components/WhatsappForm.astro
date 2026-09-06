@@ -1,0 +1,121 @@
+---
+import { WHATSAPP_NUMBER } from '../data/areas';
+interface Props {
+  niche: string;
+  services: string[];
+}
+const { niche, services } = Astro.props;
+const formId = `wf-${Math.random().toString(36).slice(2, 8)}`;
+---
+<div class="wa-card" id={formId}>
+  <div class="wa-head">
+    <p class="wa-title">Get a free quote</p>
+    <span class="wa-badge">Avg. response in 15 min</span>
+  </div>
+  <p class="wa-sub">Answer 4 quick fields — sent straight to WhatsApp, no account needed.</p>
+
+  <form class="wa-form">
+    <div class="row">
+      <label class="visually-hidden" for={`${formId}-name`}>Your name</label>
+      <input id={`${formId}-name`} name="name" type="text" placeholder="Your name" required />
+    </div>
+    <div class="row">
+      <label class="visually-hidden" for={`${formId}-phone`}>Phone number</label>
+      <input id={`${formId}-phone`} name="phone" type="tel" placeholder="Phone number" required pattern="[0-9+ ]{8,15}" />
+    </div>
+    <div class="row">
+      <label class="visually-hidden" for={`${formId}-service`}>Service needed</label>
+      <select id={`${formId}-service`} name="service" required>
+        <option value="" disabled selected>Select a service</option>
+        {services.map((s) => <option value={s}>{s}</option>)}
+        <option value="Not sure / other">Not sure / other</option>
+      </select>
+    </div>
+    <div class="row">
+      <label class="visually-hidden" for={`${formId}-req`}>Your requirement</label>
+      <textarea id={`${formId}-req`} name="requirement" rows="2" placeholder="Briefly describe what you need..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary wa-submit">
+      Send on WhatsApp
+    </button>
+    <p class="wa-note">Our {niche} team in Vadodara will get back to you shortly.</p>
+  </form>
+</div>
+
+<script define:vars={{ formId, niche, phoneNumber: WHATSAPP_NUMBER }}>
+  const root = document.getElementById(formId);
+  const form = root.querySelector('form');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = (data.get('name') || '').toString().trim();
+    const phone = (data.get('phone') || '').toString().trim();
+    const service = (data.get('service') || '').toString().trim();
+    const requirement = (data.get('requirement') || '').toString().trim();
+
+    const message = [
+      `NEW ENQUIRY FROM VADODARAEXPERTS`,
+      ``,
+      `Name: ${name}`,
+      `Number: ${phone}`,
+      `Service: ${service}`,
+      `Brief: ${requirement}`,
+      ``,
+      `Every good job starts with the right conversation — looking forward to this one.`,
+    ].join('\n');
+
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener');
+  });
+</script>
+
+<style>
+  .wa-card{
+    position:relative;
+    padding:28px;
+    max-width:400px;
+    border-radius:22px;
+    background:linear-gradient(180deg, rgba(255,255,255,.86) 0%, rgba(255,255,255,.72) 100%);
+    border:1px solid rgba(255,255,255,.55);
+    box-shadow:
+      0 24px 60px rgba(6,16,27,.35),
+      0 2px 8px rgba(6,16,27,.12),
+      inset 0 1px 0 rgba(255,255,255,.9);
+    backdrop-filter:blur(22px) saturate(160%);
+    -webkit-backdrop-filter:blur(22px) saturate(160%);
+    overflow:hidden;
+  }
+  .wa-card::before{
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,.9), transparent);
+  }
+  .wa-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .wa-title{ font-weight:600; color:var(--ink); font-size:1.05rem; margin:0; }
+  .wa-badge{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:.7rem; font-weight:600; color:#0f7a3d;
+    background:rgba(230,247,236,.9); border:1px solid #bfe8cd;
+    padding:4px 10px; border-radius:20px; white-space:nowrap;
+  }
+  .wa-badge::before{ content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; }
+  .wa-sub{ font-size:.83rem; margin-bottom:18px; color:var(--ink-soft); }
+  .wa-form{ display:flex; flex-direction:column; gap:11px; position:relative; z-index:1; }
+  .row input, .row select, .row textarea{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid rgba(15,36,56,.12);
+    border-radius:10px;
+    background:rgba(255,255,255,.75);
+    color:var(--ink);
+    resize:none;
+  }
+  .row input::placeholder, .row textarea::placeholder{ color:var(--ink-soft); }
+  .row input:focus, .row select:focus, .row textarea:focus{
+    outline:2px solid var(--accent);
+    outline-offset:1px;
+    background:rgba(255,255,255,.95);
+  }
+  .wa-submit{ width:100%; margin-top:6px; box-shadow:0 10px 24px rgba(8,145,178,.35); }
+  .wa-note{ font-size:.74rem; text-align:center; margin-top:6px; color:var(--ink-soft); }
+</style>

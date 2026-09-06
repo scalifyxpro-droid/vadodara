@@ -1,0 +1,28 @@
+---
+import { WHATSAPP_NUMBER } from '../data/areas';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container foot-main">
+    <a href="/" class="logo">Vadodara <span>Experts</span></a>
+    <p class="tag">Verified local service providers across Vadodara — one enquiry, real answers.</p>
+    <a class="btn btn-ghost" href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener">Chat on WhatsApp</a>
+  </div>
+  <div class="container bottom-bar">
+    <span>© {year} Vadodara Experts</span>
+    <span>Serving Alkapuri, Gotri, Manjalpur, Akota &amp; 45+ areas across Vadodara</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer{ border-top:1px solid var(--line); padding:48px 0 24px; }
+  .foot-main{ padding-bottom:32px; }
+  .logo{ font-weight:700; font-size:1.05rem; color:var(--ink); }
+  .logo span{ color:var(--accent); }
+  .tag{ font-size:.88rem; margin:12px 0 16px; max-width:40ch; }
+  .bottom-bar{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    padding-top:20px; border-top:1px solid var(--line);
+    font-size:.78rem; color:var(--ink-soft);
+  }
+</style>

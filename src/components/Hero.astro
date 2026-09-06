@@ -1,0 +1,82 @@
+---
+import WhatsappForm from './WhatsappForm.astro';
+interface Props {
+  eyebrow: string;
+  heading: string;
+  sub: string;
+  niche: string;
+  services: string[];
+  bgImage: string;
+}
+const { eyebrow, heading, sub, niche, services, bgImage } = Astro.props;
+---
+<section class="hero" style={`--hero-bg:url(${bgImage})`}>
+  <div class="hero-overlay"></div>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">{eyebrow}</span>
+      <h1>{heading}</h1>
+      <p class="sub">{sub}</p>
+      <div class="trust-row">
+        <span class="trust-chip">✓ Same-day response</span>
+        <span class="trust-chip">✓ 45+ areas covered</span>
+        <span class="trust-chip">✓ No hidden charges</span>
+      </div>
+    </div>
+    <WhatsappForm niche={niche} services={services} />
+  </div>
+</section>
+
+<style>
+  .hero{
+    position:relative;
+    padding:76px 0 72px;
+    background-image:var(--hero-bg);
+    background-size:cover;
+    background-position:center;
+    isolation:isolate;
+    overflow:hidden;
+  }
+  .hero-overlay{
+    position:absolute; inset:0;
+    background:linear-gradient(110deg, rgba(6,16,27,.94) 0%, rgba(8,20,32,.86) 40%, rgba(9,24,38,.62) 75%, rgba(9,24,38,.4) 100%);
+    z-index:0;
+  }
+  .hero-grid{
+    position:relative; z-index:1;
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero-copy .eyebrow{
+    color:#8fe9ff;
+    background:rgba(143,233,255,.12);
+    border:1px solid rgba(143,233,255,.3);
+    padding:6px 14px;
+    border-radius:20px;
+  }
+  .hero-copy h1{
+    font-size:2.9rem;
+    line-height:1.12;
+    margin:18px 0 18px;
+    max-width:14ch;
+    color:#ffffff;
+    letter-spacing:-0.01em;
+    text-shadow:0 2px 24px rgba(0,0,0,.25);
+  }
+  .hero-copy .sub{ font-size:1.08rem; max-width:46ch; color:#c3d5e0; line-height:1.6; }
+  .trust-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+  .trust-chip{
+    font-size:.78rem; font-weight:500; color:#e7f4f8;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.16);
+    padding:7px 13px; border-radius:20px;
+    backdrop-filter:blur(6px);
+  }
+  @media (max-width:860px){
+    .hero{ padding:48px 0 44px; }
+    .hero-grid{ grid-template-columns:1fr; gap:36px; }
+    .hero-copy h1{ font-size:2.1rem; max-width:none; }
+  }
+</style>

@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+
+const niches = (await getCollection('niches')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+const categoryNames = niches.map((n) => n.data.name);
+
+// NOTE: address, telephone and logo below are placeholder/demo values.
+// Replace with the real registered address before going live.
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Vadodara Experts',
+    url: 'https://vadodaraexperts.com',
+    logo: 'https://vadodaraexperts.com/android-chrome-512x512.png',
+    telephone: '+91-6353583148',
+    areaServed: 'Vadodara, Gujarat',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '104, Silver Business Point, Alkapuri',
+      addressLocality: 'Vadodara',
+      addressRegion: 'Gujarat',
+      postalCode: '390007',
+      addressCountry: 'IN',
+    },
+  },
+];
+---
+<BaseLayout
+  title="Vadodara Experts | Home & Local Services in Vadodara"
+  description="Vadodara Experts handles CCTV, skin care, cleaning, kitchens, flooring & more across Vadodara. Send your requirement on WhatsApp and we'll take it from there."
+  path="/"
+  jsonLd={jsonLd}
+>
+  <Hero
+    eyebrow="13 service categories · Vadodara"
+    heading="Find Verified Local Experts in Vadodara"
+    sub="We handle service requirements across health, home, automotive and industrial categories in Vadodara — enquire once, hear back fast."
+    niche="your service"
+    services={categoryNames}
+    bgImage="/images/homepage.jpg"
+  />
+
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-head">
+        <h2>What we handle</h2>
+        <p>Tap a category to see how we work and send your requirement.</p>
+      </div>
+      <div class="grid grid-4 cat-grid">
+        {niches.map((n) => (
+          <a class="card cat-card" href={`/${n.data.urlSlug}`}>
+            <span class="cat-eyebrow">{n.data.category}</span>
+            <span class="cat-name">{n.data.name}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-head">
+        <h2>How it works</h2>
+      </div>
+      <div class="grid grid-3 steps">
+        <div class="card step">
+          <span class="step-no">1</span>
+          <p class="step-title">Send your requirement</p>
+          <p>Fill the quick form with your name, number, service and what you need.</p>
+        </div>
+        <div class="card step">
+          <span class="step-no">2</span>
+          <p class="step-title">We review your requirement</p>
+          <p>Our team goes through your requirement for that category and gets back to you directly.</p>
+        </div>
+        <div class="card step">
+          <span class="step-no">3</span>
+          <p class="step-title">We get it done</p>
+          <p>We confirm the schedule and pricing on WhatsApp, then get to work on your requirement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cat-card{
+    display:flex; flex-direction:column; gap:6px;
+    padding:20px; transition:border-color .15s ease;
+  }
+  .cat-card:hover{ border-color:var(--accent); }
+  .cat-eyebrow{ font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); }
+  .cat-name{ font-weight:600; color:var(--ink); font-size:.95rem; }
+
+  .steps{ align-items:stretch; }
+  .step{ padding:24px 22px; }
+  .step-no{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:28px; height:28px; border-radius:50%;
+    background:var(--accent-soft); color:var(--accent);
+    font-weight:600; font-size:.85rem; margin-bottom:12px;
+  }
+  .step-title{ font-weight:600; color:var(--ink); margin-bottom:6px; }
+
+</style>

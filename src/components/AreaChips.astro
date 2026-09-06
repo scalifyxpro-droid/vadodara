@@ -1,0 +1,16 @@
+---
+import { areas } from '../data/areas';
+interface Props { niche: string }
+const { niche } = Astro.props;
+---
+<p class="area-intro">
+  Our {niche} network covers all major localities across Vadodara, including:
+</p>
+<div class="area-chips">
+  {areas.map((a) => <span class="chip">{a}</span>)}
+</div>
+
+<style>
+  .area-intro{ font-size:.95rem; margin-bottom:18px; max-width:60ch; }
+  .area-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+</style>
